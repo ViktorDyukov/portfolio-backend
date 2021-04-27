@@ -9,8 +9,9 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import os
 from pathlib import Path
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,8 +25,6 @@ SECRET_KEY = 'p#&maw721ync+d!451+a&7vxckw4)pz@tcz+h!6)m(w#$xgui9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -41,6 +40,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'martor',
     'corsheaders',
+    'adminsortable2',
+    'validators',
+    'easy_thumbnails',
 ]
 
 MIDDLEWARE = [
@@ -64,9 +66,17 @@ REST_FRAMEWORK = {
     ]
 }
 
-CORS_ALLOWED_ORIGINS = [
-    'http://127.0.0.1:3000'
-]
+# ALLOWED_HOSTS = []
+# CORS_ALLOWED_ORIGINS = [
+#     'http://127.0.0.1:3000',
+#     'http://localhost:3000'
+# ]
+
+ALLOWED_HOSTS = ['*']
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = False
+
+
 
 ROOT_URLCONF = 'vi2021.urls'
 
@@ -94,8 +104,12 @@ WSGI_APPLICATION = 'vi2021.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'tnm2021',
+        'USER': 'tnm_user',
+        'PASSWORD': 'Keepe2021',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
@@ -137,3 +151,24 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+
+# Other
+
+DEFAULT_AUTO_FIELD='django.db.models.AutoField'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+FILE_UPLOAD_MAX_MEMORY_SIZE = int(10 * 1024 * 1024)
+
+THUMBNAIL_ALIASES = {
+    '': {
+        'preview_desk_x1': {'size': (1334, 613), 'crop': True, 'quality': 85},
+        'preview_desk_x2': {'size': (1334 * 2, 613 * 2), 'crop': True, 'quality': 85},
+        'caseimg_x1': {'size': (1288, 800), 'crop': True, 'quality': 85},
+        'caseimg_x2': {'size': (1288 * 2, 800 * 2), 'crop': True, 'quality': 85},
+        'caseimg_preview_x1': {'size': (380, 236), 'crop': True, 'quality': 85},
+        'caseimg_preview_x2': {'size': (380 * 2, 236 * 2), 'crop': True, 'quality': 85},
+
+    },
+}

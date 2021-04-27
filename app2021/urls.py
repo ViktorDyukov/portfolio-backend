@@ -1,14 +1,13 @@
 from django.urls import include, path
-from rest_framework import routers
+from django.conf import settings
+from django.conf.urls.static import static
 from . import views
 
 
 urlpatterns = [
-    path("projects/", views.ProjectView.as_view()),
-    path("links/<int:link>/", views.LinkView.as_view()),
-    path("project/<int:id>/", views.ProjectDetailView.as_view()),
-    path("page/<int:id>/", views.PageView.as_view()),
+    path("cases/", views.CaseView.as_view()),
+    path("highlights/<int:link>/", views.LinkView.as_view()),
+    path("case/<int:id>/", views.CaseDetailView.as_view()),
+    path("page/<str:purl>/", views.PageView.as_view()),
 
-
-
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
