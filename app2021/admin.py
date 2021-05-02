@@ -1,9 +1,6 @@
 from django.contrib import admin
 from adminsortable2.admin import SortableAdminMixin, SortableInlineAdminMixin
 from .models import Customisation, Case, Tag, Link, Page, CaseImage
-from django import forms
-
-
 
 class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
     model = CaseImage
