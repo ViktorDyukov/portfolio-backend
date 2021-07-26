@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import Case, Link, Customisation, Tag, Page, CaseImage
 from easy_thumbnails.templatetags.thumbnail import thumbnail_url
 
+
 class ThumbnailSerializer(serializers.ImageField):
     def __init__(self, alias, *args, **kwargs):
         super().__init__(*args, **kwargs)
