@@ -18,7 +18,8 @@ jobs:
             mkdir temp_be
             cd temp_be
             git clone git@github.com:ViktorDyukov/portfolio-backend.git
-            rm -r /home/react/portfolio-frontend-build/*.*
-            cp -r portfolio-backend/. /home/react/portfolio-backend-build/
+            rm -r /home/django/portfolio-backend/*.*
+            cp -r portfolio-backend/. /home/django/portfolio-backend/
+            cp /home/django/settings.py /home/django/portfolio-backend/vi2021/
             cd ..
-            rm -r temp_fe
+            rm -r temp_be
