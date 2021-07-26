@@ -1,0 +1,24 @@
+name: DO Deploy
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy NodeJS app
+        uses: appleboy/ssh-action@v0.1.2
+        with:
+          host: ${{secrets.SSH_HOST}}
+          key: ${{secrets.SSH_KEY}}
+          username: ${{ secrets.SSH_USERNAME }}
+
+          script: |
+            mkdir temp_be
+            cd temp_be
+            git clone git@github.com:ViktorDyukov/portfolio-backend.git
+            rm -r /home/react/portfolio-frontend-build/*.*
+            cp -r portfolio-backend/. /home/react/portfolio-backend-build/
+            cd ..
+            rm -r temp_fe
