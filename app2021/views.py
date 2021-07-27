@@ -39,8 +39,11 @@ class CaseDetailView(APIView):
 
 class LinkView(APIView):
     def get(self, request, link):
-        queryset = Link.objects.get(link_ext=link)
-        serializer = LinkSerializer(queryset)
+        print(len(Link.objects.filter(link_ext=link)))
+        queryset = Link.objects.filter(link_ext=link)
+        if len(queryset) == 0:
+            queryset = Link.objects.filter(link_ext='public')
+        serializer = LinkSerializer(queryset[0])
         response = Response(serializer.data)
         return response
 
