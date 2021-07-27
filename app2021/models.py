@@ -91,7 +91,7 @@ class Customisation(models.Model):
 
 class Link(models.Model):
     name = models.CharField(max_length=40)
-    link_ext = models.CharField(default=random_string, max_length=3)
+    link_ext = models.CharField(default=random_string, max_length=20)
     opened = models.IntegerField()
     customisation = models.ForeignKey(Customisation, on_delete=models.SET_NULL, null=True)
 
