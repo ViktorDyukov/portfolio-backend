@@ -69,8 +69,7 @@ class CaseDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Case
         fields = (
-            'title', 'bg_color', 'date', 'tag', 'c1_title', 'c1_body', 'c2_title', 'c2_body', 'c3_title', 'c3_body',
-            'c4_title', 'c4_body', 'caseImage', 'caseInfoSection')
+            'title', 'bg_color', 'date', 'tag', 'caseImage', 'caseInfoSection')
 
 
 
