@@ -21,5 +21,7 @@ jobs:
             rm -r /home/django/portfolio-backend/*.*
             cp -r portfolio-backend/. /home/django/portfolio-backend/
             cp /home/django/settings.py /home/django/portfolio-backend/vi2021/
+            python3 /home/django/portfolio-backend/manage.py migrate
+
             cd ..
             rm -r temp_be
