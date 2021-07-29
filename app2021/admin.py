@@ -17,18 +17,6 @@ class CaseAdmin(SortableAdminMixin, admin.ModelAdmin):
         }),
         ('Appearance', {
             'fields': ('bg_color', 'preview_deskX2'),
-        }),
-        ('Content 1', {
-            'fields': ('c1_title', 'c1_body'),
-        }),
-        ('Content 2', {
-            'fields': ('c2_title', 'c2_body'),
-        }),
-        ('Content 3', {
-            'fields': ('c3_title', 'c3_body'),
-        }),
-        ('Content 4', {
-            'fields': ('c4_title', 'c4_body'),
         })
     )
     inlines = [
