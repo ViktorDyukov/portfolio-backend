@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from .models import Case, Link, Customisation, Tag, Page, CaseImage
+from .models import Case, Link, Customisation, Tag, Page, CaseImage, CaseInfoSection
 from easy_thumbnails.templatetags.thumbnail import thumbnail_url
-
+from django.template import Template, Context
 
 class ThumbnailSerializer(serializers.ImageField):
     def __init__(self, alias, *args, **kwargs):
@@ -19,10 +19,12 @@ class ThumbnailSerializer(serializers.ImageField):
             return request.build_absolute_uri(url)
         return url
 
+
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
-        fields = ('id','name')
+        fields = ('id', 'name')
+
 
 class CaseImageSerializer(serializers.ModelSerializer):
     imageX1 = ThumbnailSerializer(alias='caseimg_x1', source='imageX2')
@@ -33,6 +35,20 @@ class CaseImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = CaseImage
         fields = ('imageX1', 'imageX2', 'previewX1', 'previewX2')
+
+
+class CaseInfoSerializer(serializers.ModelSerializer):
+    body = serializers.SerializerMethodField()
+
+    class Meta:
+        model = CaseInfoSection
+        fields = ('title', 'body', 'order')
+
+    def get_body(self, obj):
+        template = Template('{% load martortags %}{{ bd | safe_markdown}}')
+        context = Context(dict(bd=obj.body))
+        body = template.render(context)
+        return body
 
 
 class AllCasesSerializer(serializers.ModelSerializer):
@@ -48,12 +64,15 @@ class AllCasesSerializer(serializers.ModelSerializer):
 class CaseDetailSerializer(serializers.ModelSerializer):
     tag = TagSerializer(read_only=True, many=True)
     caseImage = CaseImageSerializer(source="caseimage_set", many=True)
+    caseInfoSection = CaseInfoSerializer(source="caseinfosection_set", read_only=True, many=True)
 
     class Meta:
         model = Case
         fields = (
-        'title', 'bg_color', 'date', 'tag', 'c1_title', 'c1_body', 'c2_title', 'c2_body', 'c3_title', 'c3_body',
-        'c4_title', 'c4_body', 'caseImage')
+            'title', 'bg_color', 'date', 'tag', 'c1_title', 'c1_body', 'c2_title', 'c2_body', 'c3_title', 'c3_body',
+            'c4_title', 'c4_body', 'caseImage', 'caseInfoSection')
+
+
 
 
 class CustomizationSerializer(serializers.ModelSerializer):
@@ -78,14 +97,7 @@ class Pg:
         self.body = body
 
 
-# class PageSerializer(serializers.Serializer):
-#     title = serializers.CharField()
-#     body = serializers.CharField()
-
-
 class PageSerializer(serializers.ModelSerializer):
-    # test = Template('{% load markdownify %}{{body | markdownify}}')
-    # print(test)
     class Meta:
         model = Page
         fields = ('title', 'body')

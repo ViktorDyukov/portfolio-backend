@@ -32,24 +32,6 @@ class CaseDetailView(APIView):
             queryset = Case.objects.get(id=id)
         except ObjectDoesNotExist:
             raise Http404
-
-        template = Template('{% load martortags %}{{ bd | safe_markdown}}')
-
-        # to be refactored
-        context = Context(dict(bd=queryset.c1_body))
-        body = template.render(context)
-        queryset.c1_body = body
-        context = Context(dict(bd=queryset.c2_body))
-        body = template.render(context)
-        queryset.c2_body = body
-        context = Context(dict(bd=queryset.c3_body))
-        body = template.render(context)
-        queryset.c3_body = body
-        context = Context(dict(bd=queryset.c4_body))
-        body = template.render(context)
-        queryset.c4_body = body
-        # end
-
         serializer = CaseDetailSerializer(queryset)
         response = Response(serializer.data)
         return response

@@ -49,14 +49,6 @@ class Case(models.Model):
         upload_to='preview/'
     )
     date = models.CharField(max_length=40, null=True)
-    c1_title = models.CharField(max_length=30, default='About company')
-    c1_body = MartorField(null=True)
-    c2_title = models.CharField(max_length=30, default='My role')
-    c2_body = MartorField(null=True)
-    c3_title = models.CharField(max_length=30, default='Project steps')
-    c3_body = MartorField(null=True)
-    c4_title = models.CharField(max_length=30, default='Results')
-    c4_body = MartorField(null=True)
     order = models.PositiveIntegerField(default=0, blank=False, null=False)
 
     class Meta(object):
@@ -64,6 +56,15 @@ class Case(models.Model):
 
     def __str__(self):
         return "%s" % (self.title)
+
+class CaseInfoSection(models.Model):
+    case = models.ForeignKey(Case, on_delete=models.CASCADE)
+    title = models.CharField(max_length=30, default='')
+    body = MartorField(null=True)
+    order = models.PositiveIntegerField(default=0, blank=False, null=False)
+
+    class Meta(object):
+        ordering = ['order']
 
 
 class CaseImage(models.Model):

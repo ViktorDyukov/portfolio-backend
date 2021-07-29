@@ -1,9 +1,13 @@
 from django.contrib import admin
 from adminsortable2.admin import SortableAdminMixin, SortableInlineAdminMixin
-from .models import Customisation, Case, Tag, Link, Page, CaseImage
+from .models import Customisation, Case, Tag, Link, Page, CaseImage, CaseInfoSection
 
-class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
+class ImageInline(SortableInlineAdminMixin, admin.StackedInline):
     model = CaseImage
+
+
+class InfoInline(SortableInlineAdminMixin, admin.StackedInline):
+    model = CaseInfoSection
 
 class CaseAdmin(SortableAdminMixin, admin.ModelAdmin):
     readonly_fields = ('id',)
@@ -28,7 +32,7 @@ class CaseAdmin(SortableAdminMixin, admin.ModelAdmin):
         })
     )
     inlines = [
-        ImageInline,
+        InfoInline, ImageInline
     ]
 
 
