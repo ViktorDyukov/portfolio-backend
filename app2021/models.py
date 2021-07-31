@@ -43,12 +43,12 @@ class Case(models.Model):
     title = models.CharField(max_length=90)
     tag = models.ManyToManyField(Tag)
     bg_color = models.CharField(max_length=7, default='#666666')
+    description = models.TextField(max_length=40, default="")
     preview_deskX2 = models.ImageField(
         default="",
         validators=[prevImage_restriction],
         upload_to='preview/'
     )
-    description = models.CharField(max_length=40, default="")
     order = models.PositiveIntegerField(default=0, blank=False, null=False)
 
     class Meta(object):
