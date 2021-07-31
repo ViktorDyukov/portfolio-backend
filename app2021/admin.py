@@ -13,7 +13,7 @@ class CaseAdmin(SortableAdminMixin, admin.ModelAdmin):
     readonly_fields = ('id',)
     fieldsets = (
         ('Main info', {
-            'fields': ('id', 'title', 'tag', 'date'),
+            'fields': ('id', 'title', 'tag', 'description'),
         }),
         ('Appearance', {
             'fields': ('bg_color', 'preview_deskX2'),
