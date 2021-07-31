@@ -1,1 +1,0 @@
-DJANGO_ENV=development
