@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
+
 
 
 
@@ -174,6 +179,10 @@ THUMBNAIL_ALIASES = {
     },
 }
 
+try:
+    dj_env = env('DJANGO_ENV')
+except:
+    dj_env = 'development'
 
-if os.getenv('DJANGO_ENV', "dev") != 'production':
+if dj_env != 'production':
      from .local_settings import *
