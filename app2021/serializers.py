@@ -63,13 +63,15 @@ class AllCasesSerializer(serializers.ModelSerializer):
 
 class CaseDetailSerializer(serializers.ModelSerializer):
     tag = TagSerializer(read_only=True, many=True)
+    separatorImg_deskX1 = ThumbnailSerializer(alias='separatorImg_desk_x1', source='separatorImg_deskX2')
+    separatorImg_deskX2 = ThumbnailSerializer(alias='separatorImg_desk_x2')
     caseImage = CaseImageSerializer(source="caseimage_set", many=True)
     caseInfoSection = CaseInfoSerializer(source="caseinfosection_set", read_only=True, many=True)
 
     class Meta:
         model = Case
         fields = (
-            'title', 'bg_color', 'description','separatorImg_deskX2', 'tag', 'caseImage', 'caseInfoSection')
+            'title', 'bg_color', 'description','separatorImg_deskX1', 'separatorImg_deskX2', 'tag', 'caseImage', 'caseInfoSection')
 
 
 
