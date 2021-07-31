@@ -12,8 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 
-env = environ.Env()
-environ.Env.read_env()
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -43,6 +42,7 @@ INSTALLED_APPS = [
     'adminsortable2',
     'validators',
     'easy_thumbnails',
+    'environ',
 ]
 
 MIDDLEWARE = [
@@ -174,5 +174,6 @@ THUMBNAIL_ALIASES = {
     },
 }
 
-if env("DJANGO_ENV" != 'production'):
-    from .local_settings import *
+
+if os.getenv('DJANGO_ENV', "dev") != 'production':
+     from .local_settings import *
