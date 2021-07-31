@@ -21,8 +21,8 @@ def prevImage_restriction(image):
 
 def separatorImage_restriction(image):
     image_width, image_height = get_image_dimensions(image)
-    if image_width != 2400 or image_height != 960:
-        raise ValidationError('Image width needs to be 2400x960')
+    if image_width != 2400 or image_height != 1500:
+        raise ValidationError('Image width needs to be 2400x1500')
 
 def caseImage_restriction(image):
     image_width, image_height = get_image_dimensions(image)
@@ -55,7 +55,7 @@ class Case(models.Model):
     )
     separatorImg_deskX2 = models.ImageField(
         default="",
-        validators=[separatorImage_restriction],
+        # validators=[separatorImage_restriction],
         upload_to='separatorImg/'
     )
     order = models.PositiveIntegerField(default=0, blank=False, null=False)
