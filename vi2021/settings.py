@@ -161,7 +161,7 @@ STATIC_ROOT = '/home/django/static'
 # Other
 
 DEFAULT_AUTO_FIELD='django.db.models.AutoField'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = '/home/django/media'
 MEDIA_URL = '/media/'
 FILE_UPLOAD_MAX_MEMORY_SIZE = int(10 * 1024 * 1024)
 
