@@ -48,7 +48,7 @@ class Case(models.Model):
         validators=[prevImage_restriction],
         upload_to='preview/'
     )
-    date = models.CharField(max_length=40, null=True)
+    description = models.CharField(max_length=40, default="")
     order = models.PositiveIntegerField(default=0, blank=False, null=False)
 
     class Meta(object):
