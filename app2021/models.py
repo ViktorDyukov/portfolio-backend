@@ -19,6 +19,10 @@ def prevImage_restriction(image):
     if image_width != 2668 or image_height != 1226:
         raise ValidationError('Image width needs to be 2668x1226')
 
+def separatorImage_restriction(image):
+    image_width, image_height = get_image_dimensions(image)
+    if image_width != 2400 or image_height != 960:
+        raise ValidationError('Image width needs to be 2400x960')
 
 def caseImage_restriction(image):
     image_width, image_height = get_image_dimensions(image)
@@ -43,11 +47,16 @@ class Case(models.Model):
     title = models.CharField(max_length=90)
     tag = models.ManyToManyField(Tag)
     bg_color = models.CharField(max_length=7, default='#666666')
-    description = models.TextField(max_length=40, default="")
+    description = models.TextField(max_length=800, default="")
     preview_deskX2 = models.ImageField(
         default="",
         validators=[prevImage_restriction],
         upload_to='preview/'
+    )
+    separatorImg_deskX2 = models.ImageField(
+        default="",
+        validators=[separatorImage_restriction],
+        upload_to='separatorImg/'
     )
     order = models.PositiveIntegerField(default=0, blank=False, null=False)
 
