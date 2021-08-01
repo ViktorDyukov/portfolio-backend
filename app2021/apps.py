@@ -1,8 +1,10 @@
 from django.apps import AppConfig
 
 def store_as_webp(sender, **kwargs):
-    webp_path = sender.storage.path('.'.join([sender.name, 'webp']))
-    sender.image.save(webp_path, 'webp')
+    print("111")
+    webp_path = sender.storage.path('.'.join([sender.name, 'webp_test']))
+    sender.image.save(webp_path, 'png')
+    print("222")
 
 
 class App2021Config(AppConfig):
