@@ -1,10 +1,12 @@
 from django.apps import AppConfig
+import logging
+logger = logging.getLogger(__file__)
 
 def store_as_webp(sender, **kwargs):
-    print("111")
+    logger.error("111")
     webp_path = sender.storage.path('.'.join([sender.name, 'webp_test']))
     sender.image.save(webp_path, 'png')
-    print("222")
+    logger.error("222")
 
 
 class App2021Config(AppConfig):
