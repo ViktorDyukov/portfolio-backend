@@ -82,7 +82,7 @@ CORS_ALLOWED_ORIGINS = (
 )
 
 CORS_ALLOWED_ORIGIN_REGEXES = [
-    r"^http://\w+\.victorduco\.com$",
+    r"^https://\w+\.victorduco\.com$",
 ]
 
 ROOT_URLCONF = 'vi2021.urls'
