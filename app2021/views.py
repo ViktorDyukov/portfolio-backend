@@ -1,5 +1,3 @@
-from django.shortcuts import render
-from rest_framework import viewsets
 from .serializers import AllCasesSerializer, LinkSerializer, CaseDetailSerializer, PageSerializer
 from .models import Case, Link, Customisation, Page
 from rest_framework.views import APIView
@@ -10,6 +8,7 @@ from django.template import Template, Context
 from django.conf import settings
 import logging
 logger = logging.getLogger(__file__)
+
 
 
 class CaseView(APIView):

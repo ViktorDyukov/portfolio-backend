@@ -2,6 +2,9 @@ from django.apps import AppConfig
 import logging
 logger = logging.getLogger(__file__)
 
+logger.error("2333rtr22")
+
+
 def store_as_webp(sender, **kwargs):
     logger.error("111")
     webp_path = sender.storage.path('.'.join([sender.name, 'webp_test']))
