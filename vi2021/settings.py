@@ -215,6 +215,8 @@ LOGGING = {
 
 PUB_CUSTOMIZATION = 2
 
+DEBUG = True
+
 
 try:
     dj_env = env('DJANGO_ENV')
