@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app2021',
+    'app2021.apps.App2021Config',
     'rest_framework',
     'martor',
     'corsheaders',
