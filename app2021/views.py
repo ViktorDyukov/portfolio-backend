@@ -6,14 +6,10 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, Http404
 from django.template import Template, Context
 from django.conf import settings
-import logging
-logger = logging.getLogger(__file__)
-
 
 
 class CaseView(APIView):
     def get(self, request, link):
-        logger.error("222")
         try:
             cust_id = Link.objects.get(link_ext=link).customisation.id
         except ObjectDoesNotExist:
