@@ -48,6 +48,7 @@ class Case(models.Model):
     tag = models.ManyToManyField(Tag)
     bg_color = models.CharField(max_length=7, default='#666666')
     description = models.TextField(max_length=800, default="")
+    isPublic = models.BooleanField(default=True)
     preview_deskX2 = models.ImageField(
         default="",
         validators=[prevImage_restriction],

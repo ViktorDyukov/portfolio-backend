@@ -7,20 +7,28 @@ from rest_framework.response import Response
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, Http404
 from django.template import Template, Context
+from django.conf import settings
 
 
 class CaseView(APIView):
-    def get(self, request):
-        queryset = Case.objects.all().order_by('order')
-        serializer = AllCasesSerializer(queryset, many=True)
-        response = Response(serializer.data)
-        return response
-
-
-class HighlitedCaseView(APIView):
     def get(self, request, link):
-        cust = link.customisation.hightlight
-        queryset = Case.objects.filter(cust)
+        # if cust != settings.PUB_CUSTOMIZATION:
+        #     print("not pub")
+        #     queryset = Case.objects.filter(cust)
+        # else:
+        #     print("pub")
+        #     queryset = Case.objects.filter(cust)
+
+        try:
+            cust_id = Link.objects.get(link_ext=link).customisation.id
+        except ObjectDoesNotExist:
+            cust_id = settings.PUB_CUSTOMIZATION
+
+        if cust_id == settings.PUB_CUSTOMIZATION:
+            queryset = Case.objects.filter(isPublic=True)
+        else:
+            queryset = Case.objects.all().order_by('order')
+
         serializer = AllCasesSerializer(queryset, many=True)
         response = Response(serializer.data)
         return response
@@ -39,7 +47,6 @@ class CaseDetailView(APIView):
 
 class LinkView(APIView):
     def get(self, request, link):
-        print(len(Link.objects.filter(link_ext=link)))
         queryset = Link.objects.filter(link_ext=link)
         if len(queryset) == 0:
             queryset = Link.objects.filter(link_ext='public')

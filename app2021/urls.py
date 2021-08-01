@@ -5,7 +5,7 @@ from . import views
 
 
 urlpatterns = [
-    path("api/cases/", views.CaseView.as_view()),
+    path("api/cases/<str:link>/", views.CaseView.as_view()),
     path("api/highlights/<str:link>/", views.LinkView.as_view()),
     path("api/case/<int:id>/", views.CaseDetailView.as_view()),
     path("api/page/<str:purl>/", views.PageView.as_view()),

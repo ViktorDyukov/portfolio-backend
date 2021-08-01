@@ -77,10 +77,13 @@ ALLOWED_HOSTS = [
 
 CORS_ORIGIN_ALLOW_ALL = False
 
-CORS_ORIGIN_WHITELIST = (
+CORS_ALLOWED_ORIGINS = (
     'https://victorduco.com',
 )
 
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^http://\w+\.victorduco\.com$",
+]
 
 ROOT_URLCONF = 'vi2021.urls'
 
@@ -178,6 +181,8 @@ THUMBNAIL_ALIASES = {
 
     },
 }
+
+PUB_CUSTOMIZATION = 2
 
 try:
     dj_env = env('DJANGO_ENV')

@@ -2,6 +2,8 @@ from rest_framework import serializers
 from .models import Case, Link, Customisation, Tag, Page, CaseImage, CaseInfoSection
 from easy_thumbnails.templatetags.thumbnail import thumbnail_url
 from django.template import Template, Context
+from django.conf import settings
+
 
 class ThumbnailSerializer(serializers.ImageField):
     def __init__(self, alias, *args, **kwargs):
@@ -77,12 +79,20 @@ class CaseDetailSerializer(serializers.ModelSerializer):
 
 
 class CustomizationSerializer(serializers.ModelSerializer):
-    highlight = AllCasesSerializer(many=True, read_only=True)
+    highlight = serializers.SerializerMethodField()
 
     class Meta:
         model = Customisation
         fields = ('intro_header', 'intro_description', 'highlight')
 
+    def get_highlight(self, obj):
+        if obj.id != settings.PUB_CUSTOMIZATION:
+            queryset = Case.objects.filter(customisation=obj.id)
+        else:
+            queryset = Case.objects.filter(customisation=obj.id, isPublic=True)
+        print(obj.id)
+        serializer = AllCasesSerializer(many=True, read_only=True, instance=queryset)
+        return serializer.data
 
 class LinkSerializer(serializers.ModelSerializer):
     customisation = CustomizationSerializer(read_only=True)
