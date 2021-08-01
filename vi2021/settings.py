@@ -165,7 +165,7 @@ STATIC_ROOT = '/home/django/static'
 
 DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 MEDIA_ROOT = '/home/django/media'
-MEDIA_URL = '/media/'
+MEDIA_URL = '/api/media/'
 FILE_UPLOAD_MAX_MEMORY_SIZE = int(10 * 1024 * 1024)
 
 THUMBNAIL_ALIASES = {
