@@ -186,7 +186,7 @@ THUMBNAIL_ALIASES = {
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
-    "root": {"level": "INFO", "handlers": ["file"]},
+    "root": {"level": "DEBUG", "handlers": ["file"]},
     "handlers": {
         "file": {
             "level": "INFO",
