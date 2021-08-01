@@ -1,10 +1,8 @@
 from django.db import models
-from django.db.models.fields.files import ImageField
 from martor.models import MartorField
 import random
 from django.core.exceptions import ValidationError
 from django.core.files.images import get_image_dimensions
-from PIL import Image
 
 
 def random_string():

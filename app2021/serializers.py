@@ -90,7 +90,6 @@ class CustomizationSerializer(serializers.ModelSerializer):
             queryset = Case.objects.filter(customisation=obj.id)
         else:
             queryset = Case.objects.filter(customisation=obj.id, isPublic=True)
-        print(obj.id)
         serializer = AllCasesSerializer(many=True, read_only=True, instance=queryset)
         return serializer.data
 

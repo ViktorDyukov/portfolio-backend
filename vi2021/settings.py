@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'adminsortable2',
     'validators',
     'easy_thumbnails',
+    'easy_thumbnails.optimize',
     'environ',
 ]
 
