@@ -16,7 +16,7 @@ class CaseAdmin(SortableAdminMixin, admin.ModelAdmin):
             'fields': ('id', 'title', 'tag', 'description', 'isPublic'),
         }),
         ('Appearance', {
-            'fields': ('bg_color', 'preview_deskX2', 'separatorImg_deskX2'),
+            'fields': ('bg_color', 'preview_deskX2', 'preview_svg_deskX2', 'separatorImg_deskX2'),
         })
     )
     inlines = [

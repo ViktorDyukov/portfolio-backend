@@ -171,8 +171,8 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = int(10 * 1024 * 1024)
 
 THUMBNAIL_ALIASES = {
     '': {
-        'preview_desk_x1': {'size': (1334, 613), 'crop': True, 'quality': 85},
-        'preview_desk_x2': {'size': (1334 * 2, 613 * 2), 'crop': True, 'quality': 85},
+        'preview_desk_x1': {'size': (1334, 613), 'crop': True, 'quality': 100},
+        'preview_desk_x2': {'size': (1334 * 2, 613 * 2), 'crop': True, 'quality': 100},
         'separatorImg_desk_x1': {'size': (1200, 750), 'crop': True, 'quality': 85},
         'separatorImg_desk_x2': {'size': (1200 * 2, 750 * 2), 'crop': True, 'quality': 85},
         'caseimg_x1': {'size': (1288, 800), 'crop': True, 'quality': 85},

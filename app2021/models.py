@@ -52,6 +52,12 @@ class Case(models.Model):
         validators=[prevImage_restriction],
         upload_to='preview/'
     )
+
+    preview_svg_deskX2 = models.FileField(
+        default="",
+        upload_to='preview_svg/'
+    )
+
     separatorImg_deskX2 = models.ImageField(
         default="",
         # validators=[separatorImage_restriction],
