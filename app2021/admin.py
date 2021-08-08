@@ -24,6 +24,7 @@ class CaseAdmin(SortableAdminMixin, admin.ModelAdmin):
     ]
 
 
+
 admin.site.register(Customisation)
 admin.site.register(Link)
 admin.site.register(Tag)

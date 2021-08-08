@@ -77,7 +77,6 @@ class CaseDetailSerializer(serializers.ModelSerializer):
 
 
 
-
 class CustomizationSerializer(serializers.ModelSerializer):
     highlight = serializers.SerializerMethodField()
 
