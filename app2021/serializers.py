@@ -60,7 +60,7 @@ class AllCasesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Case
-        fields = ('id', 'title', 'tag', 'preview_deskX1', 'preview_deskX2', 'preview_svg_deskX2')
+        fields = ('id', 'title', 'tag', 'preview_deskX1', 'preview_deskX2', 'preview_svg_deskX2', 'preview_bgposition')
 
 
 class CaseDetailSerializer(serializers.ModelSerializer):
