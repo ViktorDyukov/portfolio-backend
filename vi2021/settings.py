@@ -179,7 +179,6 @@ THUMBNAIL_ALIASES = {
         'caseimg_x2': {'size': (1288 * 2, 800 * 2), 'crop': True, 'quality': 85},
         'caseimg_preview_x1': {'size': (380, 236), 'crop': True, 'quality': 85},
         'caseimg_preview_x2': {'size': (380 * 2, 236 * 2), 'crop': True, 'quality': 85},
-
     },
 }
 
