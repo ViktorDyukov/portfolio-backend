@@ -17,7 +17,7 @@ def optimizePreviewImg(sender, instance, **kwargs):
     thumb_url = get_thumbnailer(instance.separatorImg_deskX2)['separatorImg_desk_x2'].url
     svg_path = instance.preview_svg_deskX2.path
     batcmd = ["svgo", svg_path, "-o", svg_path]
-    r = subprocess.Popen(batcmd)
+    r = subprocess.call(batcmd)
 
 
 def optimizeCaseImg(sender, instance, **kwargs):
