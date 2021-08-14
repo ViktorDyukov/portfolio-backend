@@ -8,12 +8,13 @@ def store_as_webp(sender, **kwargs):
     webp_path = sender.storage.path('.'.join([sender.name, 'webp']))
 
     #creating webp
-    batcmd = "cwebp -preset photo -q 75 {} -o {}".format(path, webp_path)
-    r = subprocess.Popen(batcmd, shell=True)
+    batcmd = ["cwebp", "-preset", "photo", "-q", "75", path, "-o", webp_path]
+    r = subprocess.Popen(batcmd)
 
     #optimizing png
-    batcmd = "pngquant -o {} --force --quality=70-80 {}".format(path, path)
-    r = subprocess.Popen(batcmd, shell=True)
+    batcmd = ["pngquant", "-o", path, "--force", "--quality=70-80", path]
+
+    r = subprocess.Popen(batcmd)
 
 
 
