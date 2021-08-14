@@ -8,6 +8,7 @@ from django.db.models.signals import post_save
 from easy_thumbnails.files import get_thumbnailer
 import subprocess
 
+# image optimisation signals
 
 def optimizeImg(sender, instance, **kwargs):
     thumb_url = get_thumbnailer(instance.preview_deskX2)['preview_desk_x2'].url
@@ -18,11 +19,12 @@ def optimizeImg(sender, instance, **kwargs):
     r = subprocess.Popen(batcmd, shell=True)
 
 
-def random_string():
-    return str(random.randint(100, 999))
-
-
 # validators
+
+def validate_svg(file):
+    if file.name[-4:] != ".svg":
+        raise ValidationError('The file is not SVG')
+
 
 
 def prevImage_restriction(image):
@@ -39,6 +41,12 @@ def caseImage_restriction(image):
     image_width, image_height = get_image_dimensions(image)
     if image_width != 2576 or image_height != 1600:
         raise ValidationError('Image width needs to be 2576x1600')
+
+
+# Random stuff
+
+def random_string():
+    return str(random.randint(100, 999))
 
 
 # models
@@ -68,7 +76,8 @@ class Case(models.Model):
     preview_bgposition = models.CharField(max_length=7, default='50%')
     preview_svg_deskX2 = models.FileField(
         default="",
-        upload_to='preview_svg/'
+        upload_to='preview_svg/',
+        validators=[validate_svg]
     )
 
     separatorImg_deskX2 = models.ImageField(

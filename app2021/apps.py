@@ -1,5 +1,7 @@
 from django.apps import AppConfig
 import subprocess
+import xml.etree.cElementTree as et
+
 
 def store_as_webp(sender, **kwargs):
     path = sender.storage.path(sender.name)
