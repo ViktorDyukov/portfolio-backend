@@ -1,8 +1,19 @@
 from django.apps import AppConfig
+import subprocess
 
 def store_as_webp(sender, **kwargs):
+    path = sender.storage.path(sender.name)
     webp_path = sender.storage.path('.'.join([sender.name, 'webp']))
-    sender.image.save(webp_path, 'webp')
+
+    #creating webp
+    batcmd = "cwebp -preset photo -q 75 {} -o {}".format(path, webp_path)
+    r = subprocess.Popen(batcmd, shell=True)
+
+    #optimizing png
+    batcmd = "pngquant -o {} --force --quality=70-80 {}".format(path, path)
+    r = subprocess.Popen(batcmd, shell=True)
+
+
 
 
 class App2021Config(AppConfig):

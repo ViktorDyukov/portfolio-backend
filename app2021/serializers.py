@@ -5,6 +5,7 @@ from django.template import Template, Context
 from django.conf import settings
 
 
+
 class ThumbnailSerializer(serializers.ImageField):
     def __init__(self, alias, *args, **kwargs):
         super().__init__(*args, **kwargs)

@@ -3,6 +3,19 @@ from martor.models import MartorField
 import random
 from django.core.exceptions import ValidationError
 from django.core.files.images import get_image_dimensions
+from easy_thumbnails.fields import ThumbnailerImageField
+from django.db.models.signals import post_save
+from easy_thumbnails.files import get_thumbnailer
+import subprocess
+
+
+def optimizeImg(sender, instance, **kwargs):
+    thumb_url = get_thumbnailer(instance.preview_deskX2)['preview_desk_x2'].url
+    thumb_url = get_thumbnailer(instance.preview_deskX2)['preview_desk_x1'].url
+    thumb_url = get_thumbnailer(instance.separatorImg_deskX2)['separatorImg_desk_x1'].url
+    thumb_url = get_thumbnailer(instance.separatorImg_deskX2)['separatorImg_desk_x2'].url
+    batcmd = "svgo {}  -o {}".format(instance.preview_svg_deskX2.path, instance.preview_svg_deskX2.path)
+    r = subprocess.Popen(batcmd, shell=True)
 
 
 def random_string():
@@ -47,7 +60,7 @@ class Case(models.Model):
     bg_color = models.CharField(max_length=7, default='#666666')
     description = models.TextField(max_length=800, default="")
     isPublic = models.BooleanField(default=True)
-    preview_deskX2 = models.ImageField(
+    preview_deskX2 = ThumbnailerImageField(
         default="",
         validators=[prevImage_restriction],
         upload_to='preview/'
@@ -70,6 +83,10 @@ class Case(models.Model):
 
     def __str__(self):
         return "%s" % (self.title)
+
+
+post_save.connect(optimizeImg, sender=Case)
+
 
 class CaseInfoSection(models.Model):
     case = models.ForeignKey(Case, on_delete=models.CASCADE)

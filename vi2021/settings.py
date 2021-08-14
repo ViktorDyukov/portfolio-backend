@@ -173,12 +173,12 @@ THUMBNAIL_ALIASES = {
     '': {
         'preview_desk_x1': {'size': (1334, 613), 'crop': True, 'quality': 100},
         'preview_desk_x2': {'size': (1334 * 2, 613 * 2), 'crop': True, 'quality': 100},
-        'separatorImg_desk_x1': {'size': (1200, 750), 'crop': True, 'quality': 85},
-        'separatorImg_desk_x2': {'size': (1200 * 2, 750 * 2), 'crop': True, 'quality': 85},
-        'caseimg_x1': {'size': (1288, 800), 'crop': True, 'quality': 85},
-        'caseimg_x2': {'size': (1288 * 2, 800 * 2), 'crop': True, 'quality': 85},
-        'caseimg_preview_x1': {'size': (380, 236), 'crop': True, 'quality': 85},
-        'caseimg_preview_x2': {'size': (380 * 2, 236 * 2), 'crop': True, 'quality': 85},
+        'separatorImg_desk_x1': {'size': (1200, 750), 'crop': True, 'quality': 100},
+        'separatorImg_desk_x2': {'size': (1200 * 2, 750 * 2), 'crop': True, 'quality': 100},
+        'caseimg_x1': {'size': (1288, 800), 'crop': True, 'quality': 100},
+        'caseimg_x2': {'size': (1288 * 2, 800 * 2), 'crop': True, 'quality': 100},
+        'caseimg_preview_x1': {'size': (380, 236), 'crop': True, 'quality': 100},
+        'caseimg_preview_x2': {'size': (380 * 2, 236 * 2), 'crop': True, 'quality': 100},
     },
 }
 
