@@ -10,13 +10,20 @@ import subprocess
 
 # image optimisation signals
 
-def optimizeImg(sender, instance, **kwargs):
+def optimizePreviewImg(sender, instance, **kwargs):
     thumb_url = get_thumbnailer(instance.preview_deskX2)['preview_desk_x2'].url
     thumb_url = get_thumbnailer(instance.preview_deskX2)['preview_desk_x1'].url
     thumb_url = get_thumbnailer(instance.separatorImg_deskX2)['separatorImg_desk_x1'].url
     thumb_url = get_thumbnailer(instance.separatorImg_deskX2)['separatorImg_desk_x2'].url
     batcmd = "svgo {}  -o {}".format(instance.preview_svg_deskX2.path, instance.preview_svg_deskX2.path)
     r = subprocess.Popen(batcmd, shell=True)
+
+
+def optimizeCaseImg(sender, instance, **kwargs):
+    thumb_url = get_thumbnailer(instance.imageX2)['caseimg_x1'].url
+    thumb_url = get_thumbnailer(instance.imageX2)['caseimg_x2'].url
+    thumb_url = get_thumbnailer(instance.imageX2)['caseimg_preview_x1'].url
+    thumb_url = get_thumbnailer(instance.imageX2)['caseimg_preview_x2'].url
 
 
 # validators
@@ -94,7 +101,7 @@ class Case(models.Model):
         return "%s" % (self.title)
 
 
-post_save.connect(optimizeImg, sender=Case)
+post_save.connect(optimizePreviewImg, sender=Case)
 
 
 class CaseInfoSection(models.Model):
@@ -118,6 +125,9 @@ class CaseImage(models.Model):
 
     class Meta(object):
         ordering = ['order']
+
+
+post_save.connect(optimizeCaseImg, sender=CaseImage)
 
 
 class Customisation(models.Model):
