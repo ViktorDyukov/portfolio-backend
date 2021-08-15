@@ -7,24 +7,31 @@ from easy_thumbnails.fields import ThumbnailerImageField
 from django.db.models.signals import post_save
 from easy_thumbnails.files import get_thumbnailer
 import subprocess
+from easy_thumbnails.signals import saved_file
+from easy_thumbnails.signal_handlers import generate_aliases
+
 
 # image optimisation signals
 
+
+saved_file.connect(generate_aliases)
+
+
 def optimizePreviewImg(sender, instance, **kwargs):
-    thumb_url = get_thumbnailer(instance.preview_deskX2)['preview_desk_x2'].url
-    thumb_url = get_thumbnailer(instance.preview_deskX2)['preview_desk_x1'].url
-    thumb_url = get_thumbnailer(instance.separatorImg_deskX2)['separatorImg_desk_x1'].url
-    thumb_url = get_thumbnailer(instance.separatorImg_deskX2)['separatorImg_desk_x2'].url
+    # thumb_url = get_thumbnailer(instance.preview_deskX2)['preview_desk_x2'].url
+    # thumb_url = get_thumbnailer(instance.preview_deskX2)['preview_desk_x1'].url
+    # thumb_url = get_thumbnailer(instance.separatorImg_deskX2)['separatorImg_desk_x1'].url
+    # thumb_url = get_thumbnailer(instance.separatorImg_deskX2)['separatorImg_desk_x2'].url
     svg_path = instance.preview_svg_deskX2.path
     batcmd = ["svgo", svg_path, "-o", svg_path]
     r = subprocess.call(batcmd)
 
 
-def optimizeCaseImg(sender, instance, **kwargs):
-    thumb_url = get_thumbnailer(instance.imageX2)['caseimg_x1'].url
-    thumb_url = get_thumbnailer(instance.imageX2)['caseimg_x2'].url
-    thumb_url = get_thumbnailer(instance.imageX2)['caseimg_preview_x1'].url
-    thumb_url = get_thumbnailer(instance.imageX2)['caseimg_preview_x2'].url
+# def optimizeCaseImg(sender, instance, **kwargs):
+#     thumb_url = get_thumbnailer(instance.imageX2)['caseimg_x1'].url
+#     thumb_url = get_thumbnailer(instance.imageX2)['caseimg_x2'].url
+#     thumb_url = get_thumbnailer(instance.imageX2)['caseimg_preview_x1'].url
+#     thumb_url = get_thumbnailer(instance.imageX2)['caseimg_preview_x2'].url
 
 
 # validators
@@ -88,7 +95,7 @@ class Case(models.Model):
         validators=[validate_svg]
     )
 
-    separatorImg_deskX2 = models.ImageField(
+    separatorImg_deskX2 = ThumbnailerImageField(
         default="",
         # validators=[separatorImage_restriction],
         upload_to='separatorImg/'
@@ -117,7 +124,7 @@ class CaseInfoSection(models.Model):
 
 class CaseImage(models.Model):
     case = models.ForeignKey(Case, on_delete=models.CASCADE)
-    imageX2 = models.ImageField(
+    imageX2 = ThumbnailerImageField(
         default="",
         validators=[caseImage_restriction],
         upload_to='cases/'
@@ -128,7 +135,7 @@ class CaseImage(models.Model):
         ordering = ['order']
 
 
-post_save.connect(optimizeCaseImg, sender=CaseImage)
+# post_save.connect(optimizeCaseImg, sender=CaseImage)
 
 
 class Customisation(models.Model):

@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'easy_thumbnails',
     'easy_thumbnails.optimize',
     'environ',
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [
@@ -170,17 +171,22 @@ MEDIA_URL = '/api/media/'
 FILE_UPLOAD_MAX_MEMORY_SIZE = int(10 * 1024 * 1024)
 
 THUMBNAIL_ALIASES = {
-    '': {
+    'app2021.Case.preview_deskX2': {
         'preview_desk_x1': {'size': (1334, 613), 'crop': True, 'quality': 100},
         'preview_desk_x2': {'size': (1334 * 2, 613 * 2), 'crop': True, 'quality': 100},
+    },
+    'app2021.Case.separatorImg_deskX2': {
         'separatorImg_desk_x1': {'size': (1200, 750), 'crop': True, 'quality': 100},
         'separatorImg_desk_x2': {'size': (1200 * 2, 750 * 2), 'crop': True, 'quality': 100},
+    },
+    'app2021.CaseImage.imageX2': {
         'caseimg_x1': {'size': (1288, 800), 'crop': True, 'quality': 100},
         'caseimg_x2': {'size': (1288 * 2, 800 * 2), 'crop': True, 'quality': 100},
         'caseimg_preview_x1': {'size': (380, 236), 'crop': True, 'quality': 100},
         'caseimg_preview_x2': {'size': (380 * 2, 236 * 2), 'crop': True, 'quality': 100},
     },
 }
+
 
 LOGGING = {
     "version": 1,

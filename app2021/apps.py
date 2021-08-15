@@ -1,9 +1,10 @@
 from django.apps import AppConfig
 import subprocess
-import xml.etree.cElementTree as et
+from django_cleanup.signals import cleanup_pre_delete
+from django.conf import settings
 
 
-def store_as_webp(sender, **kwargs):
+def webp_create(sender, **kwargs):
     path = sender.storage.path(sender.name)
     webp_path = sender.storage.path('.'.join([sender.name, 'webp']))
 
@@ -17,6 +18,16 @@ def store_as_webp(sender, **kwargs):
     r = subprocess.call(batcmd)
 
 
+def webp_delete(**kwargs):
+    path = kwargs['file'].name.split("/", 1)
+    full_path = "/".join([settings.MEDIA_ROOT, path[0]])
+    pattern = path[1] + "*_crop.png.webp"
+    batcmd = ["find", full_path, "-type", "f", "-name", pattern, "-delete"]
+    r = subprocess.call(batcmd)
+    print(full_path)
+    print(pattern)
+
+
 
 
 class App2021Config(AppConfig):
@@ -24,4 +35,8 @@ class App2021Config(AppConfig):
 
     def ready(self):
         from easy_thumbnails.signals import thumbnail_created
-        thumbnail_created.connect(store_as_webp)
+        thumbnail_created.connect(webp_create)
+        cleanup_pre_delete.connect(webp_delete)
+
+
+
