@@ -174,6 +174,8 @@ THUMBNAIL_ALIASES = {
     'app2021.Case.preview_deskX2': {
         'preview_desk_x1': {'size': (1334, 613), 'crop': True, 'quality': 100},
         'preview_desk_x2': {'size': (1334 * 2, 613 * 2), 'crop': True, 'quality': 100},
+        'preview_mobile_x1': {'size': (400, 613), 'crop': True, 'quality': 100},
+        'preview_mobile_x2': {'size': (400 * 2, 613 * 2), 'crop': True, 'quality': 100},
     },
     'app2021.Case.separatorImg_deskX2': {
         'separatorImg_desk_x1': {'size': (1200, 750), 'crop': True, 'quality': 100},

@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Case, Link, Customisation, Tag, Page, CaseImage, CaseInfoSection
 from easy_thumbnails.templatetags.thumbnail import thumbnail_url
+from easy_thumbnails.files import get_thumbnailer
 from django.template import Template, Context
 from django.conf import settings
 
@@ -21,6 +22,32 @@ class ThumbnailSerializer(serializers.ImageField):
         if request is not None:
             return request.build_absolute_uri(url)
         return url
+
+
+class MobilePreviewThumbnailSerializer(serializers.ImageField):
+    def __init__(self, alias, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.read_only = True
+        self.alias = alias
+
+    def to_representation(self, value):
+        if not value:
+            return None
+
+        thumbnailer = get_thumbnailer(value)
+        thumbnail_options = settings.THUMBNAIL_ALIASES['app2021.Case.preview_deskX2'][self.alias]
+        pos = int(value.instance.preview_bgposition)
+        pos = int(pos * 2.8 - 40)
+        thumbnail_options.update({"crop": str(pos)+","})
+        url = thumbnailer.get_thumbnail(thumbnail_options)
+        url = url.storage.url(url.name)
+
+        request = self.context.get('request', None)
+        if request is not None:
+            return request.build_absolute_uri(url)
+
+        return url
+
 
 
 class TagSerializer(serializers.ModelSerializer):
@@ -58,10 +85,12 @@ class AllCasesSerializer(serializers.ModelSerializer):
     tag = TagSerializer(read_only=True, many=True)
     preview_deskX1 = ThumbnailSerializer(alias='preview_desk_x1', source='preview_deskX2')
     preview_deskX2 = ThumbnailSerializer(alias='preview_desk_x2')
+    preview_mobileX1 = MobilePreviewThumbnailSerializer(alias='preview_mobile_x1', source='preview_deskX2')
+    preview_mobileX2 = MobilePreviewThumbnailSerializer(alias='preview_mobile_x2', source='preview_deskX2')
 
     class Meta:
         model = Case
-        fields = ('id', 'title', 'tag', 'preview_deskX1', 'preview_deskX2', 'preview_svg_deskX2', 'preview_bgposition')
+        fields = ('id', 'title', 'tag', 'preview_deskX1', 'preview_deskX2','preview_mobileX1', 'preview_mobileX2', 'preview_svg_deskX2', 'preview_bgposition')
 
 
 class CaseDetailSerializer(serializers.ModelSerializer):

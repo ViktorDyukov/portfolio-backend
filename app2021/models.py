@@ -88,7 +88,7 @@ class Case(models.Model):
         validators=[prevImage_restriction],
         upload_to='preview/'
     )
-    preview_bgposition = models.CharField(max_length=7, default='50%')
+    preview_bgposition = models.CharField(max_length=7, default='50')
     preview_svg_deskX2 = models.FileField(
         default="",
         upload_to='preview_svg/',
