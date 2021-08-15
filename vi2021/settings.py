@@ -222,7 +222,7 @@ LOGGING = {
 
 PUB_CUSTOMIZATION = 2
 
-DEBUG = True
+DEBUG = False
 
 
 try:
