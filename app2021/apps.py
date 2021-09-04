@@ -2,6 +2,7 @@ from django.apps import AppConfig
 import subprocess
 from django_cleanup.signals import cleanup_pre_delete
 from django.conf import settings
+import pdfrw
 
 
 def webp_create(sender, **kwargs):

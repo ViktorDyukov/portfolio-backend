@@ -1,11 +1,13 @@
 from .serializers import AllCasesSerializer, LinkSerializer, CaseDetailSerializer, PageSerializer
 from .models import Case, Link, Customisation, Page
-from rest_framework.views import APIView
+from rest_framework.views import APIView, View
 from rest_framework.response import Response
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponse, Http404
+from django.http import FileResponse, Http404
 from django.template import Template, Context
 from django.conf import settings
+import pdfrw
+import io
 
 
 class CaseView(APIView):
@@ -55,3 +57,24 @@ class PageView(APIView):
         serializer = PageSerializer(queryset)
         response = Response(serializer.data)
         return response
+
+
+class CVView(View):
+    def get(self, request, link):
+        pdf = pdfrw.PdfReader("templates/cv.pdf")
+        new_pdf = pdfrw.PdfWriter()
+        for page in pdf.pages:
+            for annot in page.Annots or []:
+                old_url = annot.A.URI.decode()
+                if old_url.find('portfolio.victorduco.com') != -1:
+                    new_url = old_url.replace('portfolio.victorduco.com', '{}.victorduco.com'.format(link))
+                    new_url = pdfrw.objects.pdfstring.PdfString("({})".format(new_url))
+                    annot.A.URI = new_url
+            new_pdf.addpage(page)
+        buf = io.BytesIO()
+        new_pdf.write(buf)
+        buf.seek(io.SEEK_SET)
+        try:
+            return FileResponse(buf, content_type='application/pdf', as_attachment=True, filename="Victor Dyukov - CV.pdf")
+        except FileNotFoundError:
+            raise Http404()
