@@ -16,7 +16,6 @@ import environ
 env = environ.Env()
 environ.Env.read_env()
 
-DEBUG = True
 
 
 
@@ -224,6 +223,7 @@ LOGGING = {
 PUB_CUSTOMIZATION = 2
 
 DEBUG = False
+DEBUG = True
 
 
 try:
