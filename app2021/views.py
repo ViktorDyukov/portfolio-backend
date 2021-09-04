@@ -61,7 +61,7 @@ class PageView(APIView):
 
 class CVView(View):
     def get(self, request, link):
-        pdf = pdfrw.PdfReader("templates/cv.pdf")
+        pdf = pdfrw.PdfReader("{}/templates/cv.pdf".format(settings.BASE_DIR))
         new_pdf = pdfrw.PdfWriter()
         for page in pdf.pages:
             for annot in page.Annots or []:
