@@ -83,6 +83,10 @@ class Case(models.Model):
     bg_color = models.CharField(max_length=7, default='#666666')
     description = models.TextField(max_length=800, default="")
     isPublic = models.BooleanField(default=True)
+    slidesLink = models.URLField(
+        max_length=128,
+        blank=True
+    )
     preview_deskX2 = ThumbnailerImageField(
         default="",
         validators=[prevImage_restriction],
